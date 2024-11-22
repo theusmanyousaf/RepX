@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IoHomeSharp } from "react-icons/io5";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaGithub } from "react-icons/fa";
 import { MdOutlineExplore } from "react-icons/md";
 import { PiSignInBold } from "react-icons/pi";
 import { MdEditDocument } from "react-icons/md";
@@ -14,7 +14,7 @@ const Sidebar = () => {
         >
             <nav className='h-full flex flex-col gap-3'>
                 <Link to='/' className='flex justify-center'>
-                    <img className='h-8' src='/github.svg' alt='Github Logo' />
+                    <FaGithub size={30} />
                 </Link>
 
                 <Link
