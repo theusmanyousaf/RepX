@@ -4,7 +4,6 @@ import Spinner from "../components/Spinner";
 import Repos from "../components/Repos";
 
 const ExplorePage = () => {
-    // https://api.github.com/search/repositories?q=language:javascript&sort=stars&order=desc&per_page=10
     const Languages = ["javascript", "typescript", "c++", "python", "java"];
     const [loading, setLoading] = useState(false);
     const [repos, setRepos] = useState([]);
@@ -14,9 +13,9 @@ const ExplorePage = () => {
         setLoading(true);
         setRepos([]);
         try {
-            const res = await fetch(`https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=10`);
-            const { items } = await res.json();
-            setRepos(items);
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/explore/repos/${language}`);
+            const { repos } = await res.json();
+            setRepos(repos);
 
             setSelectedLanguage(language);
         } catch (error) {
@@ -40,7 +39,7 @@ const ExplorePage = () => {
                         />
                     ))}
                 </div>
-                {repos.length > 0 && (
+                {repos?.length > 0 && (
                     <h2 className='text-lg font-semibold text-center my-4'>
                         <span className='bg-blue-100 text-blue-800 font-medium me-2 px-2.5 py-0.5 rounded-full '>
                             {selectedLanguage.toUpperCase()}{" "}
@@ -48,7 +47,7 @@ const ExplorePage = () => {
                         Repositories
                     </h2>
                 )}
-                {!loading && repos.length > 0 && <Repos repos={repos} alwaysFullWidth />}
+                {!loading && repos?.length > 0 && <Repos repos={repos} alwaysFullWidth />}
                 {loading && <Spinner />}
             </div>
         </div>

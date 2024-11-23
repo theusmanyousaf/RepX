@@ -8,7 +8,7 @@ import Repos from "../components/Repos"
 import Spinner from "../components/Spinner"
 
 const HomePage = () => {
-    const [userProfile, setUserProfile] = useState({});
+    const [userProfile, setUserProfile] = useState(null);
     const [repos, setRepos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [sortType, setSortType] = useState("recent");
@@ -16,12 +16,12 @@ const HomePage = () => {
     const getUserGithubData = useCallback(async (username = "theusmanyousaf") => {
         setLoading(true);
         try {
-            const response = await fetch(`https://api.github.com/users/${username}`);
-            const userProfile = await response.json();
-            setUserProfile(userProfile);
-            const userRepos = await fetch(userProfile.repos_url);
-            const repos = await userRepos.json();
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/profile/${username}`);
+            const { userProfile, repos } = await res.json();
+
             repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            setUserProfile(userProfile);
             setRepos(repos);
             return { userProfile, repos };
         } catch (error) {
