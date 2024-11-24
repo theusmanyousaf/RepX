@@ -6,7 +6,7 @@ export const explorePopularRepos = async (req, res) => {
             `https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=40`,
             {
                 headers: {
-                    authorization: `token ${process.env.GITHUB_API_KEY}`,
+                    authorization: `token ${process.env.GITHUB_KEY}`,
                 },
             }
         );
