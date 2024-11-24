@@ -17,7 +17,7 @@ dotenv.config();
 const app = express();
 
 {/* Middleware */ }
-app.use(cors());
+// app.use(cors());
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -45,11 +45,11 @@ app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/explore', exploreRoutes)
 
-// connectMongoDB();
+connectMongoDB();
 
-app.listen(3000, () => {
-    connectMongoDB();
-    console.log('Server is running on port http://localhost:3000');
-})
+// app.listen(3000, () => {
+//     connectMongoDB();
+//     console.log('Server is running on port http://localhost:3000');
+// })
 
 export default app;

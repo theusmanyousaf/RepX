@@ -16,7 +16,7 @@ const HomePage = () => {
     const getUserGithubData = useCallback(async (username = "theusmanyousaf") => {
         setLoading(true);
         try {
-            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/profile/${username}`);
+            const res = await fetch(`/api/users/profile/${username}`);
             const { userProfile, repos } = await res.json();
 
             repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
