@@ -8,7 +8,7 @@ const Logout = () => {
 
     const handleLogout = async () => {
         try {
-            const res = await fetch("/api/auth/logout", { credentials: "include" });
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, { credentials: "include" });
             const data = await res.json();
             console.log(data);
             setAuthUser(null);
