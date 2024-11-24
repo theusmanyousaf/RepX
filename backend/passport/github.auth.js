@@ -29,10 +29,10 @@ passport.use(
             // signup
             if (!user) {
                 const newUser = new User({
-                    name: profile.displayName || "",
+                    name: profile.displayName,
                     username: profile.username,
                     profileUrl: profile.profileUrl,
-                    avatarUrl: profile.photos[0].value || "",
+                    avatarUrl: profile.photos[0].value,
                     likedProfiles: [],
                     likedBy: [],
                 });
