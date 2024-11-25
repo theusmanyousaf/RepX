@@ -30,7 +30,7 @@ app.use(
         cookie: {
             secure: process.env.NODE_ENV === 'production', // Secure cookies in production
             httpOnly: true,
-            sameSite: 'lax', // Adjust based on requirements
+            sameSite: 'none', // Adjust based on requirements
         },
     })
 );
