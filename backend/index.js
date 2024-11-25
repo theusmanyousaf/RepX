@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import session from 'express-session';
 
@@ -18,7 +19,21 @@ const app = express();
 
 {/* Middleware */ }
 // app.use(cors());
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || 'keyboard cat',
+        resave: false,
+        saveUninitialized: false,
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO_URI, // MongoDB connection string
+        }),
+        cookie: {
+            secure: process.env.NODE_ENV === 'production', // Secure cookies in production
+            httpOnly: true,
+            sameSite: 'lax', // Adjust based on requirements
+        },
+    })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 // Vercel Custom CORS Headers
